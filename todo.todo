@@ -1,0 +1,39 @@
+General:
+    ☐ Work on brainstorming what the background should look like
+
+Clouds:
+    ✔ Change connections from single location to left/right @done(21-10-02 15:38)
+
+    Cloud Shape Generation:
+        ✔ Get basic working version @done(21-10-02 15:38)
+        ✔ Add options for minimum/maximum connection sizes @done(21-10-02 15:38)
+
+        ✔ Create version for filling up polygon space @done(21-10-02 15:38)
+        ☐ Tweak the generation algorithm to be less regular
+           Less likely to create connections and rows in the middle
+        ☐ Validate that it works with complicated shapes
+           This would potentially be easy to do with filled clouds but not the outline
+
+Waves:
+    ☐ Document all of the simple seigaiha wave patterns we want
+    Make functions for each of them:
+        ☐ Same color
+        ☐ Few colors
+        ☐ Alternating colors
+        ☐ Gradient between colors
+    
+    Other waves:
+        ☐ Look into the curved waves with curling foam edges
+        ☐ Test out with voronoi or diamond shapes
+
+Sun/Sky:
+    ☐ Sun placement and sizing
+    ☐ Sky coloring: pure gradient? 
+    ☐ Sky coloring: what level of detail/texture should it have?
+    ☐ Sky coloring: dependent/related to sun? Sunset to midday and apply coloring over whole thing?
+
+Torii:
+    ☐ Implement different versions based on that one picture with the different types
+
+Ground/Mountains:
+    ☐ Brainstorm how/what that should look like
