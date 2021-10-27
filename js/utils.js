@@ -21,6 +21,13 @@ function ease(p, g) {
 }
 
 
+
+function cumulative_sum(arr) {
+  let psum = 0;
+  return arr.map(x => psum += x);
+}
+
+
 // Helpful statistics scripts
 // https://observablehq.com/@nstrayer/javascript-statistics-snippets
 

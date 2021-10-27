@@ -1,4 +1,4 @@
-const canvas_size_multiplier = 0.5;
+const canvas_size_multiplier = 1;
 
 const canvas_width = 1920 * canvas_size_multiplier;
 const canvas_height = 1080 * canvas_size_multiplier;
@@ -19,7 +19,7 @@ function setup() {
     const cloud_height = height / 30;
 
     for (let i = 0; i < num_clouds; i++) {
-        
+
         const x_offset = -width * 0.1 + width * Math.random() * 1.2;
         const y_offset = height * Math.random() - cloud_height;
         const num_cloud_rows = 2 + Math.floor(Math.random() * 2);
@@ -37,26 +37,26 @@ function setup() {
         const max_bounds = false;
         const min_connections = true;
         const max_connections = false;
-    
+
         push();
         translate(x_offset, y_offset);
 
         const res = generate_egasumi_shape(
-            shape_points, 
-            cloud_height, 
-            min_gap, 
+            shape_points,
+            cloud_height,
+            min_gap,
             max_bounds,
-            min_connections, 
+            min_connections,
             max_connections
         );
-    
+
         const horizontal_bounds = res[0];
         const connections = res[1];
-    
-        
+
+
         palette_arr = shuffle(palette_arr);
 
-        
+
         strokeWeight(5);
         stroke(color("#" + palette_arr[0]));
 
@@ -69,20 +69,18 @@ function setup() {
         draw_egasumi(horizontal_bounds, connections, cloud_height);
         pop();
     }
-
-
 }
 
 
 function generate_egasumi_shape(
-    shape_points, 
-    cloud_height, 
-    min_gap=0, 
+    shape_points,
+    cloud_height,
+    min_gap=0,
     max_bounds=false,
-    min_connections=false, 
+    min_connections=false,
     max_connections=false
     ) {
-    
+
     // Find the max/min x bounds at each cloud row level
     const x_bounds = x_bounds_per_level(cloud_height, shape_points);
 
@@ -120,7 +118,7 @@ function generate_egasumi_shape(
 /* Calculate the random left location, then calculate the right hand location.
  * If prior row, then redefine bounds to make sure that
  * the left hand side isn't past the right of the prior and vice versa.
- * Make sure that the right hand is at least 2 times (?) the cloud_height to 
+ * Make sure that the right hand is at least 2 times (?) the cloud_height to
  * right hand side of the left side.
  */
 function generate_cloud_row_bounds(min_x, max_x, cloud_height, prior_row=null) {
@@ -153,7 +151,7 @@ function x_bounds_per_level(cloud_height, shape_points) {
     let x_bounds = [];
     for (let y = y_min + cloud_height / 2; y <= y_max; y += cloud_height * 2) {
         // Add arbitrary amount on either end to ensure intersection
-        const pt1 = [x_min - 100, y]; 
+        const pt1 = [x_min - 100, y];
         const pt2 = [x_max + 100, y];
         const intersect_segment = find_min_intersect_segment(pt1, pt2, shape_points);
         const temp_bounds = [intersect_segment[1][0], intersect_segment[0][0]];
@@ -165,7 +163,7 @@ function x_bounds_per_level(cloud_height, shape_points) {
 
 // min_connections and max connections should never both be true
 function generate_connection(row, prior_row, cloud_height, min_connections, max_connections) {
-    const x_min = Math.max(row[0], prior_row[0]) + cloud_height * 1.5; 
+    const x_min = Math.max(row[0], prior_row[0]) + cloud_height * 1.5;
     const x_max = Math.min(row[1] , prior_row[1]) - cloud_height * 1.5;
 
     let left, right;
@@ -327,9 +325,9 @@ function draw_egasumi(horizontal_bounds, connections, cloud_height) {
 
 
 /** Function to draw the egasumi cloud given the inputs
-  * Rather than using p5js's beginShape and curveVertex functions which are based on bezier curves, 
-  * I am using the raw HTML canvas functions since the long straight lines were causing issues. 
-  * With the canvas functions, we can use plain arcs and straight lines which render fine. 
+  * Rather than using p5js's beginShape and curveVertex functions which are based on bezier curves,
+  * I am using the raw HTML canvas functions since the long straight lines were causing issues.
+  * With the canvas functions, we can use plain arcs and straight lines which render fine.
   * All locations based from the top left corner and the y values go from top down according to p5js convention
   * Start at the top and work your way clockwise around all of it.
   *
@@ -340,16 +338,16 @@ function draw_egasumi(horizontal_bounds, connections, cloud_height) {
   * cloud_height: height of each horizontal line segent as well as connections
   */
  function draw_egasumi_html_canvas(
-    horizontal_bounds, 
-    connections, 
-    cloud_height, 
-    has_stroke=false, 
+    horizontal_bounds,
+    connections,
+    cloud_height,
+    has_stroke=false,
     has_fill=false
     ) {
 push();
 const num_rows = horizontal_bounds.length;
 
-let ctx = canvas.getContext('2d'); 
+let ctx = canvas.getContext('2d');
 ctx.beginPath();
 // Downwards iteration on right hand side
 for (let i = 0; i < num_rows; i++) {
@@ -360,7 +358,7 @@ for (let i = 0; i < num_rows; i++) {
         ctx.moveTo(connections[i - 1][1] + cloud_height / 2, cloud_height * i * 2);
         ctx.lineTo(horizontal_bounds[i][1] - cloud_height / 2, cloud_height * i * 2);
     }
-    
+
     ctx.arc(
         horizontal_bounds[i][1] - cloud_height / 2,
         cloud_height * (i * 2 + 0.5),
@@ -369,12 +367,12 @@ for (let i = 0; i < num_rows; i++) {
         PI / 2,
         false
     );
-    
+
     // Go back to the left and do the left curve if it's not the bottom row
     if (i < (num_rows - 1)) {
         ctx.moveTo(horizontal_bounds[i][1] - cloud_height / 2, cloud_height * (i * 2 + 1));
         ctx.lineTo(connections[i][1] + cloud_height / 2, cloud_height * (i * 2 + 1));
-    
+
         ctx.arc(
             connections[i][1] + cloud_height / 2,
             cloud_height * (i * 2 + 1.5),
@@ -410,14 +408,14 @@ for (let i = num_rows - 1; i >= 0; i--) {
         // Straight line from leftmost curve end to inner connection curve
         ctx.moveTo(horizontal_bounds[i][0] + cloud_height / 2, cloud_height * (i * 2));
         ctx.lineTo(connections[i - 1][0] - cloud_height / 2, cloud_height * (i * 2));
-        
+
         // Inner connection curve
         ctx.arc(
             connections[i - 1][0] - cloud_height / 2,
             cloud_height * (i * 2 - 0.5),
             cloud_height / 2,
             - PI / 2,
-            PI / 2, 
+            PI / 2,
             false
         );
 
@@ -455,18 +453,18 @@ const palettes = [
     'https://coolors.co/495867-577399-bdd5ea-f7f7ff-fe5f55',
     'https://coolors.co/8cb369-f4e285-f4a259-5b8e7d-bc4b51',
   ]
-  
-  
-  
-  
+
+
+
+
   function get_palette_colors(palettes, n) {
     const palette = palettes[Math.floor(Math.random() * palettes.length)];
     let palette_arr = parse_palette(palette);
     shuffle(palette_arr);
     return palette_arr.slice(0, n);
   }
-  
-  
+
+
   function parse_palette(palette_str) {
     // https://coolors.co/264653-2a9d8f-e9c46a-f4a261-e76f51
     const base_str = palette_str.substr(19);

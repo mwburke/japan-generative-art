@@ -15,25 +15,47 @@ Clouds:
            This would potentially be easy to do with filled clouds but not the outline
 
 Waves:
-    ☐ Document all of the simple seigaiha wave patterns we want
+    ✔ Document all of the simple seigaiha wave patterns we want @done(21-10-03 18:58)
     Make functions for each of them:
-        ☐ Same color
-        ☐ Few colors
-        ☐ Alternating colors
-        ☐ Gradient between colors
-    
+        ✔ Same color @done(21-10-03 18:58)
+        ✔ Few colors @done(21-10-03 18:58)
+        ✔ Alternating colors @done(21-10-03 18:58)
+        ✔ Gradient between colors @done(21-10-03 18:58)
+
     Other waves:
         ☐ Look into the curved waves with curling foam edges
         ☐ Test out with voronoi or diamond shapes
 
 Sun/Sky:
     ☐ Sun placement and sizing
-    ☐ Sky coloring: pure gradient? 
+    ☐ Sky coloring: pure gradient?
     ☐ Sky coloring: what level of detail/texture should it have?
     ☐ Sky coloring: dependent/related to sun? Sunset to midday and apply coloring over whole thing?
 
 Torii:
-    ☐ Implement different versions based on that one picture with the different types
+    Draw order:
+        ✔ Cross bar + middle @done(21-10-03 23:25)
+        ☐ Top decorations
+        ✔ Posts @done(21-10-03 22:03)
+        ☐ Top
+        ✔ Base @done(21-10-03 23:25)
+    ✔ Figure out test colors @done(21-10-03 21:23)
+    ☐ Figure out real color spectrum to use
+
+    Components:
+        ✔ Posts @done(21-10-03 22:03)
+           With slight angles
+        ✔ Post-bases @done(21-10-03 23:25)
+        Top:
+            ☐ Flat top
+            ☐ Curvy top
+            ☐ Top layers
+                ☐ Top colors
+            ☐ Top decorations
+        ✔ Crossbar @done(21-10-03 23:25)
+        ✔ Crossbar middle @done(21-10-03 23:25)
+
+
 
 Ground/Mountains:
     ☐ Brainstorm how/what that should look like
