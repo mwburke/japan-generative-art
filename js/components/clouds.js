@@ -1,7 +1,9 @@
 const canvas_size_multiplier = 1;
 
-const canvas_width = 1920 * canvas_size_multiplier;
-const canvas_height = 1080 * canvas_size_multiplier;
+// const canvas_width = 1920 * canvas_size_multiplier;
+// const canvas_height = 1080 * canvas_size_multiplier;
+const canvas_width = 720 * canvas_size_multiplier;
+const canvas_height = 1280 * canvas_size_multiplier;
 
 const debug = false;
 
@@ -10,20 +12,32 @@ function setup() {
     createCanvas(canvas_width, canvas_height);
     noLoop();
     curveTightness(1.1);
-    background(240);
+
+    // drawingContext.setLineDash([10, 10]);
+
 
     const palette = palettes[Math.floor(Math.random() * palettes.length)];
+    console.log(palette);
     let palette_arr = parse_palette(palette);
+    palette_arr = shuffle(palette_arr);
 
-    const num_clouds = 15;
-    const cloud_height = height / 30;
+    if (Math.random() < 0.7) {
+        background(color('#' + palette_arr.pop()));
+    } else {
+        background(240);
+    }
+
+
+
+    const num_clouds = 8 + Math.floor(Math.random() * 5);
+    const cloud_height = height / 40;
 
     for (let i = 0; i < num_clouds; i++) {
 
         const x_offset = -width * 0.1 + width * Math.random() * 1.2;
         const y_offset = height * Math.random() - cloud_height;
         const num_cloud_rows = 2 + Math.floor(Math.random() * 2);
-        const x_width = width / 6 + Math.random() * width / 10;
+        const x_width = width / 3 + Math.random() * width / 5;
         const y_width = num_cloud_rows * (cloud_height * 2 + 1.05);
 
         const shape_points = [
@@ -60,7 +74,9 @@ function setup() {
         strokeWeight(5);
         stroke(color("#" + palette_arr[0]));
 
-        if (Math.random() < 0.5) {
+        // const filled_num = Math.random();
+        const filled_num = 0;
+        if (filled_num < 0.6) {
             fill(color("#" + palette_arr[0]));
         } else {
             noFill();
@@ -443,22 +459,29 @@ const palettes = [
     'https://coolors.co/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8',
     'https://coolors.co/e63946-f1faee-a8dadc-457b9d-1d3557',
     'https://coolors.co/003049-d62828-f77f00-fcbf49-eae2b7',
-    'https://coolors.co/f4f1de-e07a5f-3d405b-81b29a-f2cc8f',
+    // 'https://coolors.co/f4f1de-e07a5f-3d405b-81b29a-f2cc8f',
     'https://coolors.co/006d77-83c5be-edf6f9-ffddd2-e29578',
     'https://coolors.co/335c67-fff3b0-e09f3e-9e2a2b-540b0e',
-    'https://coolors.co/353535-3c6e71-ffffff-d9d9d9-284b63',
+    // 'https://coolors.co/353535-3c6e71-ffffff-d9d9d9-284b63',
     'https://coolors.co/3d5a80-98c1d9-e0fbfc-ee6c4d-293241',
     'https://coolors.co/588b8b-ffffff-ffd5c2-f28f3b-c8553d',
     'https://coolors.co/780116-f7b538-db7c26-d8572a-c32f27',
     'https://coolors.co/495867-577399-bdd5ea-f7f7ff-fe5f55',
-    'https://coolors.co/8cb369-f4e285-f4a259-5b8e7d-bc4b51',
+    // 'https://coolors.co/8cb369-f4e285-f4a259-5b8e7d-bc4b51',
+    'https://coolors.co/3e78b2-004ba8-4a525a-24272b-07070a',
+    'https://coolors.co/d0ccd0-fbfcff-605856-1c6e8c-274156',
+    'https://coolors.co/18206f-17255a-f5e2c8-d88373-bd1e1e',
+    'https://coolors.co/75b9be-a8ccc9-b3d6c6-dceab2-c7d66d,'
+
   ]
 
 
 
 
   function get_palette_colors(palettes, n) {
-    const palette = palettes[Math.floor(Math.random() * palettes.length)];
+      const ind = Math.floor(Math.random() * palettes.length);
+    //   console.log(palettes[ind]);
+    const palette = palettes[ind];
     let palette_arr = parse_palette(palette);
     shuffle(palette_arr);
     return palette_arr.slice(0, n);
@@ -471,3 +494,11 @@ const palettes = [
     const str_arr = base_str.split('-');
     return str_arr;
   }
+
+
+
+function keyPressed() {
+    if (key == 's') {
+        save('egasumi_mobile_random.png')
+    }
+}
