@@ -1,3 +1,63 @@
+
+function quilttexture() {
+  push();
+  translate(-width / 2, -height * 3 / 4);
+  const main_grid_size = 20;
+  const minor_grid_size = main_grid_size * 5;
+
+  const main_grid_width = width / main_grid_size;
+  const minor_grid_width = width / minor_grid_size;
+
+  const main_grid_lines = 1000;
+  const minor_grid_lines = 4000;
+
+  drawingContext.setLineDash([0, 1])
+  drawingContext.shadowBlur = null;
+
+  noFill();
+  stroke(168, 168, 168, 50);
+  strokeWeight(1);
+
+  const num_points = 10;
+  const offset_noise = width * 0.001;
+  for (let i = 0; i < main_grid_lines; i++) {
+    const x = Math.floor(main_grid_size * Math.random() + 1) * main_grid_width;
+    const y = Math.floor((height / main_grid_width) * Math.random() + 1) * main_grid_width;
+
+    const l = width * 0.08;
+
+    const angle = (PI / 2) * Math.floor(Math.random() * 4);
+
+    beginShape();
+    for (let j = 0; j < num_points; j++) {
+      curveVertex(
+        x + (j / num_points) * l * cos(angle) + Math.random() * offset_noise,
+        y + (j / num_points) * l * sin(angle) + Math.random() * offset_noise
+      )
+    }
+    endShape();
+  }
+
+  for (let i = 0; i < minor_grid_lines; i++) {
+    const x = Math.floor(minor_grid_size * Math.random() + 1) * minor_grid_width;
+    const y = Math.floor((height / minor_grid_width) * Math.random() + 1) * minor_grid_width;
+
+    const l = width * 0.05;
+
+    const angle = (PI / 2) * Math.floor(Math.random() * 4);
+
+    beginShape();
+    for (let j = 0; j < num_points; j++) {
+      curveVertex(
+        x + (j / num_points) * l * cos(angle) + Math.random() * offset_noise,
+        y + (j / num_points) * l * sin(angle) + Math.random() * offset_noise
+      )
+    }
+    endShape();
+  }
+  pop();
+}
+
 function hslToHex(h, s, l) {
   l /= 100;
   const a = s * Math.min(l, 1 - l) / 100;

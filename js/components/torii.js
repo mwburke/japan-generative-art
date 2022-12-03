@@ -1,4 +1,4 @@
-const canvas_size_multiplier = 0.5;
+const canvas_size_multiplier = 0.6;
 
 const canvas_width = 1920 * canvas_size_multiplier;
 const canvas_height = 1080 * canvas_size_multiplier;
@@ -24,6 +24,10 @@ function setup() {
 }
 
 function generate() {
+    // drawingContext.setLineDash([10, 5]);
+    // drawingContext.shadowBlur = 5;
+    // drawingContext.shadowColor = 'gray';
+
     clear();
     background(200);
 
@@ -34,6 +38,8 @@ function generate() {
     const torii_params = generate_torii(post_height, post_width, max_angle, max_curve_angle);
 
     draw_torii(...torii_params);
+
+    // quilttexture()
 }
 
 
@@ -143,8 +149,9 @@ function draw_torii(post_height, post_base_width, post_width, post_angle, crossb
     push();
 
     // Precalculate data
-    strokeWeight(post_width / 8);
-    stroke(accent_color);
+    strokeWeight(post_width * 0.05);
+    // stroke(accent_color);
+    stroke(50);
 
     const post_bottoms = [
         [-post_base_width / 2, 0],
