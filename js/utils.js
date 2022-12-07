@@ -1,3 +1,12 @@
+function random_from_array(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+
+function centered_random() {
+  return Math.random() - 0.5;
+}
+
 
 function quilttexture() {
   push();
